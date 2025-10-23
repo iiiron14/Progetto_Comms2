@@ -2,9 +2,20 @@ clear;
 close all;
 clc;
 
-x = -10:0.01:10;
-y = sinc(x);
+an = rand(1, 10) > 0.5;
+g = [ones(1, 50) zeros(1, 50)];
 
-[rxTau, lags] = xcorr(y);
-plot(lags,rxTau);
-%xlim([-100 100]);
+s = kron(an, g);
+figure;
+plot(s);
+ylabel("s(t)");
+
+[rxTau, lags] = xcorr(s);
+figure;
+plot(lags, rxTau);
+ylabel("rxTau");
+
+gf = fft(rxTau);
+figure;
+plot(abs(gf));
+ylabel("G(f)");
